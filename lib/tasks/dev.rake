@@ -1,6 +1,7 @@
 namespace :dev do
   desc "TODO"
   task setup: :environment do
+    %x(rails db:drop db:create db:migrate)
     
     kinds = ["Amigo", "Comercial", "Conhecido"]
     
@@ -23,6 +24,12 @@ namespace :dev do
         contact.phones << phone
         contact.save!
       end
+    end
+
+    Contact.all.each do |contact| 
+        address = Address.new(street: Faker::Address.street_address, city: Faker::Address.city, )
+        contact.address = address
+        contact.save!
     end
 
     
