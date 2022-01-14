@@ -17,6 +17,14 @@ namespace :dev do
       )
     end
 
+    Contact.all.each do |contact| 
+      Random.rand(5).times do |i|
+        phone = Phone.new(number: Faker::PhoneNumber.phone_number)
+        contact.phones << phone
+        contact.save!
+      end
+    end
+
     
   end
 
